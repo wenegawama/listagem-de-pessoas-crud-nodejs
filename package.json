@@ -1,0 +1,21 @@
+{
+  "name": "Lista-de-pessoas-projeto-node-js",
+  "version": "1.0.0",
+  "description": "Projeto de listagem de pessoas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node-js",
+    "MongoDB",
+    "Express",
+    "CRUD",
+    "API-REST"
+  ],
+  "author": "Wenega Wama",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
