@@ -1,15 +1,25 @@
 const router = require('express').Router()
 const Lista = require('../models/Lista')
 
-router.get('/', (req, res) => {
-    const lista = Lista.find()  
-    
-    res.json({
-        sucess:true,
-        data:lista
-    })
+//metodo para pegar/buscar toda a lista
+
+router.get('/', async (req, res) => {
+    try{
+        const lista = await Lista.find()      
+        res.json({
+            sucess:true,
+            data:lista
+        })
+    }catch(err){
+        res.json({
+            sucess:false,
+            message:err
+        })
+    }
+   
 })
 
+//metodo para criar uma lista
 router.post('/', async (req, res) => {
     const lista = new Lista({
         nome: req.body.nome ,
@@ -30,7 +40,7 @@ router.post('/', async (req, res) => {
     //     })
     // }
 
-
+//para gravar
     lista
         .save()
         .then((data) => {
