@@ -1,37 +1,50 @@
 const router = require('express').Router()
+const Lista = require('../models/Lista')
 
 router.get('/', (req, res) => {
-    //data base
-    const data =[
-        {nome:"Lua",
-        createdAt: '1989-10-29',
-        ativo:true,
-        idade:25
-        },
-        {nome:"Sol",
-        createdAt: '1985-12-05',
-        ativo:true},
-    ]
-
-    res.json({
-        status:'funcionou',
-        data
-    })           
-})
-
-router.get('/:listaDePessoasId', (req, res) => {
-    console.log('O id informado é : ', req.params.listaDePessoasId)
-
+    const lista = Lista.find()  
+    
     res.json({
         sucess:true,
-        id: req.params.listaDePessoasId
+        data:lista
     })
 })
 
-router.post('/', (req, res) => {
-    res.json(req.body)
+router.post('/', async (req, res) => {
+    const lista = new Lista({
+        nome: req.body.nome ,
+        nascimento: req.body.nascimento
+    })
+
+    
+    // try{
+    //     const listaSalvada = await lista.save()
+    //     res.json({
+    //         sucess:true,
+    //         data:listaSalvada
+    //     })
+    // }catch(err){
+    //     res.json({
+    //         sucess:false,
+    //         message:err
+    //     })
+    // }
+
+
+    lista
+        .save()
+        .then((data) => {
+            res.json({
+                sucess:true,
+                data
+            })
+        })
+        .catch((err) => {
+            res.json({
+                sucess:false,
+                message:err
+            })
+        })
 })
-
-
 
 module.exports = router

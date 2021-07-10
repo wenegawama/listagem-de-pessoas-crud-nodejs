@@ -1,12 +1,7 @@
 const router = require('express').Router()
-const mongoose = require('mongoose')
-
-mongoose.connect(process.env.MONGO_URL_CONNECT, () => {
-    console.log('connectou ao mongoDB')
-})
+require('../db/mongoConnection')
 
 const lista = require('./listaDePessoas')
-
 
 
 router.get('/', (req, res) => {
