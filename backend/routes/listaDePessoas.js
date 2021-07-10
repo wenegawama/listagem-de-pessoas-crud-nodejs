@@ -90,6 +90,7 @@ router.patch('/:slug', async (req, res) => {
 
         res.json({
             sucess:true,
+            updated: updatedLista.nModified
         })
     }catch(err){
         res.json({
@@ -100,5 +101,24 @@ router.patch('/:slug', async (req, res) => {
 })
 
 //delete
+
+router.delete('/:slug', async (req, res) => {
+    try{
+        const deletedLista = await Lista.deleteOne({
+            slug: req.params.slug
+        })
+
+        res.json({
+            sucess:true,
+            deleted:deletedLista.deletedCount
+        })
+
+    }catch(err){
+        res.json({
+            sucess:false,
+            message:err
+        })
+    }
+})
 
 module.exports = router
