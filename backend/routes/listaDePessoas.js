@@ -5,7 +5,7 @@ const Lista = require('../models/Lista')
 
 router.get('/', async (req, res) => {
     try{
-        const lista = await Lista.find()      
+        const lista = await Lista.find()     
         res.json({
             sucess:true,
             data:lista
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 router.get('/:slug', async (req, res) => {
     try{
         const lista = await Lista.findOne({
-            slug: req.params.slug
+            slug: req.query.slug
         })
 
         res.json({
@@ -75,5 +75,30 @@ router.post('/', async (req, res) => {
             })
         })
 })
+
+//update
+
+router.patch('/:slug', async (req, res) => {
+    try{
+        const updatedLista = await Lista.updateOne({
+            slug: req.params.slug
+        },
+        {
+            nome: req.body.nome,
+            nascimento: req.body.nascimento
+        })
+
+        res.json({
+            sucess:true,
+        })
+    }catch(err){
+        res.json({
+            succes:false,
+            message:err
+        })
+    }
+})
+
+//delete
 
 module.exports = router
