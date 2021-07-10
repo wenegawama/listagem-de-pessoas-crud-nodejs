@@ -19,6 +19,25 @@ router.get('/', async (req, res) => {
    
 })
 
+//ler uma pessoa
+router.get('/:slug', async (req, res) => {
+    try{
+        const lista = await Lista.findOne({
+            slug: req.params.slug
+        })
+
+        res.json({
+            sucess:true,
+            data:lista
+        })
+    }catch(err){
+        res.json({
+            sucess:false,
+            message:err
+        })
+    }
+})
+
 //metodo para criar uma lista
 router.post('/', async (req, res) => {
     const lista = new Lista({
